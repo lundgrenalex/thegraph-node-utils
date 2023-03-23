@@ -96,11 +96,11 @@ for subgraph in subgraph_indexing_data:
 
 result = SubgraphsIndexingResult(subgraphs=subgraphs, length=len(subgraphs))
 
-with open('./checks.json', 'r') as f:
-    try:
+try:
+    with open('./checks.json', 'r') as f:
         stats_data = SubgraphsStat(**json.loads(f.read()))
-    except json.decoder.JSONDecodeError:
-        stats_data = SubgraphsStat(data=[])
+except (json.decoder.JSONDecodeError, FileNotFoundError):
+    stats_data = SubgraphsStat(data=[])
 
 with open('./checks.json', 'w') as f:
     stats_data.data.append(result)

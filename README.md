@@ -5,8 +5,16 @@
 * estimation day in days
 
 ## How to use
-### Collect data to json file
 
+### Installation
+```bash
+python3 -m venv .venv
+. ./.venv/bin/activate
+pip3 install pip --upgrade
+```
+
+
+### Collect data to json file
 Before u have to change base url for your indexer inside script `get_get_data_from_indexer.py`. All data collected to `checks.json`.
 You can run whis app every N-sec. Example (run every 30min [60sec * 30]):
 ```bash
