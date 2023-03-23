@@ -6,11 +6,12 @@
 
 ## How to use
 
-### Installation
+### Install app env
 ```bash
 python3 -m venv .venv
 . ./.venv/bin/activate
 pip3 install pip --upgrade
+pip3 install -r requirements.txt
 ```
 
 
