@@ -49,7 +49,6 @@ with open('./checks.json', 'r') as f:
     unhealthy_subgraphs = {}
     synced_subgraps = {}
     syncing_subgraphs = {}
-    new_deployed_subgraphs = {}
 
     def get_subgraph_status_by_hash(
             subgraphs: tp.List[tp.Dict[str, tp.Any]],

@@ -1,10 +1,14 @@
-"""gql schema: https://github.com/graphprotocol/graph-node/blob/master/server/index-node/src/schema.graphql"""
+"""
+gql schema:
+https://github.com/graphprotocol/graph-node/blob/master/server/index-node/src/schema.graphql
+"""
 
-import typing as tp
+import json
 import time
+import typing as tp
+
 import requests
 from pydantic import BaseModel
-import json
 
 BASE_URL = 'http://localhost:8030/graphql'
 
@@ -12,25 +16,25 @@ BASE_QUERY = """
 query {
         indexingStatuses (limit: 100) {
             subgraph
-                node
-                entityCount
-                health
-                synced
-                chains {
-                    network
-                    chainHeadBlock {
-                        number
-                    }
-                    latestBlock {
-                        number
-                    }
+            node
+            entityCount
+            health
+            synced
+            chains {
+                network
+                chainHeadBlock {
+                    number
                 }
-                fatalError {
-                    handler
-                    message
-                    block {
-                        number
-                    }
+                latestBlock {
+                    number
+                }
+            }
+            fatalError {
+                handler
+                message
+                block {
+                    number
+                }
                 }
         }
 }
