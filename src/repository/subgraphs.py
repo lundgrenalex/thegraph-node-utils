@@ -8,10 +8,10 @@ from src.drivers import TheGraphIndexerStore
 
 
 class SubgraphError(BaseModel):
-    handler: tp.Union[str, None]
-    message: str
-    block_number: int
-    block_hash: str
+    handler: tp.Union[str, None] = None
+    message: tp.Union[str, None] = None
+    block_number: int = 0
+    block_hash: tp.Union[str, None] = None
 
 
 class SubgraphIndexingStatus(BaseModel):
@@ -24,7 +24,7 @@ class SubgraphIndexingStatus(BaseModel):
     head_block: int
     latest_block: int
     entities: int
-    error: tp.Union[SubgraphError, None]
+    error: SubgraphError = SubgraphError()
     features: tp.List[str] = []
 
 
@@ -83,6 +83,14 @@ class SubgraphsRepository:
         }
         """.replace('SUBGRAPH_ID', subgraph_id)
         return self.driver.send_request(query=BASE_QUERY, variables=None)
+
+    def get_hash_by_block_number(self, network: str, block_number: int) -> tp.Union[str, None]:
+        BASE_QUERY = 'query {blockHashFromNumber(network: "NETWORK", blockNumber: BLOCK_NUMBER)}'.replace(
+            'NETWORK', network).replace('BLOCK_NUMBER', str(block_number))
+        try:
+            return self.driver.send_request(query=BASE_QUERY, variables=None)['data']['blockHashFromNumber']
+        except KeyError:
+            return None
 
     def get_subgraphs(self,) -> SubgraphsIndexingResult:
         subgraphs = []
