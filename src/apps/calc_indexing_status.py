@@ -1,3 +1,4 @@
+import logging
 from src.drivers import FileStore
 from src.settings.base import AppSettings
 from src.repository import StatsRepository
@@ -8,6 +9,11 @@ def run_app() -> None:
 
     # init settings
     settings = AppSettings()
+
+    # logging setup
+    logging.basicConfig(
+        **settings.logging_settings.dict()
+    )
 
     # init drivers
     stats_file_store = FileStore(

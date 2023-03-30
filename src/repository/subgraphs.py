@@ -1,3 +1,4 @@
+import logging
 import time
 import typing as tp
 
@@ -86,6 +87,8 @@ class SubgraphsRepository:
     def get_subgraphs(self,) -> SubgraphsIndexingResult:
         subgraphs = []
         subgraps_from_indexer = self.__get_subgraphs()['indexingStatuses']
+        logging.debug('ALL SUBGRAPHS STATUSES ARE: ')
+        logging.debug(subgraps_from_indexer)
         for subgraph in subgraps_from_indexer:
             if subgraph['fatalError']:
                 subgraph_error = SubgraphError(
@@ -97,18 +100,24 @@ class SubgraphsRepository:
                 subgraph_error = None
             subgraph_features = self.get_subgraph_features(
                 subgraph_id=subgraph['subgraph'])['subgraphFeatures']['features']
-            subgraph_status = SubgraphIndexingStatus(
-                name='XXX',  # TODO: Get the Name
-                hash=subgraph['subgraph'],
-                health=subgraph['health'],
-                synced=subgraph['synced'],
-                entities=subgraph['entityCount'],
-                head_block=subgraph['chains'][0]['chainHeadBlock']['number'],
-                latest_block=subgraph['chains'][0]['latestBlock']['number'],
-                network=subgraph['chains'][0]['network'],
-                node=subgraph['node'],
-                error=subgraph_error,
-                features=subgraph_features)
+            try:
+                subgraph_status = SubgraphIndexingStatus(
+                    name='XXX',  # TODO: Get the Name
+                    hash=subgraph['subgraph'],
+                    health=subgraph['health'],
+                    synced=subgraph['synced'],
+                    entities=subgraph['entityCount'],
+                    head_block=subgraph['chains'][0]['chainHeadBlock']['number'],
+                    latest_block=subgraph['chains'][0]['latestBlock']['number'],
+                    network=subgraph['chains'][0]['network'],
+                    node=subgraph['node'],
+                    error=subgraph_error,
+                    features=subgraph_features)
+            except (TypeError, KeyError, IndexError) as e:
+                logging.error(e)
+                logging.info('WRONG SUBGRAPH INFO:')
+                logging.info(subgraph)
+                continue
             subgraphs.append(subgraph_status)
         return SubgraphsIndexingResult(
             subgraphs=subgraphs, length=len(subgraphs))
