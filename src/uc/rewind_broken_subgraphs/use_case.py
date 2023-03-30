@@ -42,7 +42,7 @@ class RewindBrokenSubgraphs(BaseUseCase):
             self.__get_subgraph_command_for_rewind(subgraph, [
                 'no connection to the server',
                 'subgraph writer poisoned by previous error',
-            ], 1)  # rollback to 100 blocks
+            ], 1)  # rollback for 1 block
             self.__log_wrong_subgraph(subgraph)
 
         # Display subgraphs for rewind

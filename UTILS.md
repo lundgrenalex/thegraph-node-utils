@@ -2,7 +2,7 @@
 
 ### Get graphman's list rewind commands for failed subgraphs
 __HOWTO:__
-```bash
+```shell
 python3 src/apps/rewind_broken_subgraphs.py
 
 graphman rewind 0xaecad5409a963d2dbac66fb6d689dd41d7fc9afd8ac92ac0791e047115240200 16739300 QmfGbT45D97qwe65CjHeqJ39w3h6JRPBeCFxe1ztSnAcZE
@@ -18,7 +18,8 @@ graphman rewind 0x0a44dc2ded531dacf6dc0c14d9e25939ac52c9c51628a0d13d2d90470b504b
 ```
 
 ### Get subgraph info
-```bash
+__HOWTO:__
+```shell
 python3 src/apps/get_subgraph_info.py QmYPh4BHfJRszYBP7tnPFPHpKf2DdyHAtgRbE8PAnU1fZN
 ```
 
