@@ -2,8 +2,7 @@ import time
 import json
 import typing as tp
 
-from pydantic import BaseModel
-
+from pydantic import BaseModel, error_wrappers
 from src.drivers import FileStore
 
 
@@ -43,13 +42,16 @@ class StatsRepository:
         self.store = driver
 
     def save(self, stat_data: tp.Dict[str, tp.Any]):
-        current_state = SubgraphsStat(data=json.loads(self.store.get()))
+        try:
+            current_state = SubgraphsStat(**json.loads(self.store.get()))
+        except json.decoder.JSONDecodeError:
+            current_state = SubgraphsStat(data=[])
         current_state.data.append(SubgraphsIndexingResult(**stat_data))
         self.store.save(data=current_state.json())
 
     def get(self) -> tp.Dict[str, tp.Any]:
         try:
-            data = SubgraphsStat(data=json.loads(self.store.get()))
+            data = SubgraphsStat(**json.loads(self.store.get()))
         except (json.decoder.JSONDecodeError, FileNotFoundError):
             data = SubgraphsStat(data=[])
         return data.dict()

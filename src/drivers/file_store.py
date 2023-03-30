@@ -5,12 +5,13 @@ class FileStore:
 
     def __init__(self, file_dst: str) -> None:
         self.file_dst = file_dst
-        self.__check_store()
+        self.__init_store()
 
-    def __check_store(self) -> None:
-        file_exists = exists(self.file_dst)
-        if not file_exists:
-            self.save('[]')
+    def __init_store(self) -> None:
+        if exists(self.file_dst):
+            return
+        fp = open(self.file_dst, 'x')
+        fp.close()
 
     def get(self) -> str:
         with open(self.file_dst, 'r') as f:

@@ -3,6 +3,7 @@
 ## Metrics
 * count blocks per minute
 * estimation day in days
+* features
 
 ## How to use
 
@@ -19,12 +20,12 @@ pip3 install -r requirements.txt
 Before u have to change base url for your indexer inside script `get_get_data_from_indexer.py`. All data collected to `checks.json`.
 You can run whis app every N-sec. Example (run every 30min [60sec * 30]):
 ```bash
-watch -n 1800 python3 get_get_data_from_indexer.py
+watch -n 1800 python3 src/apps/get_get_data_from_indexer.py
 ```
 
 ### Get stats for subgraps from indexer
 ```bash
-python3 get_stats.py
+python3 src/apps/calc_indexing_status.py
 ```
 
 Example output:

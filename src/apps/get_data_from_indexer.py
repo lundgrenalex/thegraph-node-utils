@@ -1,5 +1,5 @@
-from src.drivers import TheGraphIndexerStore, FileStore
-from src.repository import SubgraphsRepository, StatsRepository
+from src.drivers import FileStore, TheGraphIndexerStore
+from src.repository import StatsRepository, SubgraphsRepository
 from src.settings.base import AppSettings
 from src.uc import GetDataFromIndexerUseCase
 
