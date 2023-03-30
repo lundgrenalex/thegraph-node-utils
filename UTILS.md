@@ -1,6 +1,6 @@
 ## UTILS
 
-### Get graphman's list rewind commands for filed subgraphs
+### Get graphman's list rewind commands for failed subgraphs
 __HOWTO:__
 ```bash
 python3 src/apps/rewind_broken_subgraphs.py
