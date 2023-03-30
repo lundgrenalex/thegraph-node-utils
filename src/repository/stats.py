@@ -2,7 +2,7 @@ import time
 import json
 import typing as tp
 
-from pydantic import BaseModel, error_wrappers
+from pydantic import BaseModel
 from src.drivers import FileStore
 
 
@@ -41,7 +41,7 @@ class StatsRepository:
     def __init__(self, driver: FileStore) -> None:
         self.store = driver
 
-    def save(self, stat_data: tp.Dict[str, tp.Any]):
+    def save(self, stat_data: tp.Dict[str, tp.Any]) -> None:
         try:
             current_state = SubgraphsStat(**json.loads(self.store.get()))
         except json.decoder.JSONDecodeError:

@@ -17,7 +17,8 @@ pip3 install -r requirements.txt
 
 
 ### Collect data to json file
-Before u have to change base url for your indexer inside script `get_get_data_from_indexer.py`. All data collected to `checks.json`.
+Before u have to change base url for your indexer inside script `get_get_data_from_indexer.py`.
+All data collected to `checks/store.json`.
 You can run whis app every N-sec. Example (run every 30min [60sec * 30]):
 ```bash
 watch -n 1800 python3 src/apps/get_get_data_from_indexer.py

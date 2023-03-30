@@ -7,6 +7,8 @@ from src.uc.calc_stats.models import SubgraphIndexingStatus
 
 class CalcStatsUseCase(BaseUseCase):
 
+    result: tp.List[SubgraphIndexingStatus] = []
+
     def __init__(self, stats_repository: StatsRepository) -> None:
         self.stats_repo = stats_repository
 
@@ -113,9 +115,12 @@ class CalcStatsUseCase(BaseUseCase):
                         continue
 
                     # store information
+                    sync_speed = int((results_for_median[next_subgraph['hash']]['sync_speed'] + sync_speed_per_min) / 2)
+                    estimation_time_to_sync_chain = int(
+                        (results_for_median[next_subgraph['hash']]['estimation_time_to_sync_chain'] + estimation_time_to_sync_chain) / 2)
                     results_for_median[next_subgraph['hash']] = {
-                        'sync_speed': int((results_for_median[next_subgraph['hash']]['sync_speed'] + sync_speed_per_min) / 2),
-                        'estimation_time_to_sync_chain': int((results_for_median[next_subgraph['hash']]['estimation_time_to_sync_chain'] + estimation_time_to_sync_chain) / 2),
+                        'sync_speed': sync_speed,
+                        'estimation_time_to_sync_chain': estimation_time_to_sync_chain,
                     }
 
             # Get final results
