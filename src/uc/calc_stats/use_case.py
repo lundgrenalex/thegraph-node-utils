@@ -53,16 +53,43 @@ class CalcStatsUseCase(BaseUseCase):
                 result.append(subgraph)
         return result
 
-    def execute(self, uc_request: tp.Optional[tp.Any]):
-
-        checks = self.stats_repo.get()
-        sorted_checks = sorted(checks['data'], key=lambda d: d['check_date'])
+    def __show_results(self) -> None:
 
         # filter subgraps
         stopped_subgraps = {}
         unhealthy_subgraphs = {}
         synced_subgraps = {}
         syncing_subgraphs = {}
+
+        for subgraph in self.result:
+
+            # stopped
+            if subgraph.health == 'failed':
+                stopped_subgraps[subgraph.hash] = subgraph
+                continue
+
+            # synced
+            if subgraph.synced:
+                synced_subgraps[subgraph.hash] = subgraph
+                continue
+
+            # unhealthy
+            if subgraph.health == 'unhealthy':
+                unhealthy_subgraphs[subgraph.hash] = subgraph
+
+            # syncing subgraphs
+            syncing_subgraphs[subgraph.hash] = subgraph
+
+        print(f'Total subgraps count: {len(self.result)}\n')
+        self.__print_subgraps_info('stopped', stopped_subgraps)
+        self.__print_subgraps_info('unhealthy', unhealthy_subgraphs)
+        self.__print_subgraps_info('synced', synced_subgraps)
+        self.__print_subgraps_info('syncing', syncing_subgraphs)
+
+    def execute(self, uc_request: tp.Optional[tp.Any]) -> None:
+
+        checks = self.stats_repo.get()
+        sorted_checks = sorted(checks['data'], key=lambda d: d['check_date'])
 
         # get healthy subgraphs only
         healthy_subgraphs_ids = self.__get_ids_healthy_subgrpaps(
@@ -124,36 +151,12 @@ class CalcStatsUseCase(BaseUseCase):
                     }
 
             # Get final results
-            final_result = []
             for subgraph in sorted_checks[-1]['subgraphs']:
                 if subgraph['hash'] in results_for_median:
                     subgraph['sync_speed_per_min'] = results_for_median[
                         subgraph['hash']]['sync_speed']
                     subgraph['estimation_time_to_sync_chain'] = results_for_median[
                         subgraph['hash']]['estimation_time_to_sync_chain']
-                final_result.append(SubgraphIndexingStatus(**subgraph))
+                self.result.append(SubgraphIndexingStatus(**subgraph))
 
-            for subgraph in final_result:
-
-                # stopped
-                if subgraph.health == 'failed':
-                    stopped_subgraps[subgraph.hash] = subgraph
-                    continue
-
-                # synced
-                if subgraph.synced:
-                    synced_subgraps[subgraph.hash] = subgraph
-                    continue
-
-                # unhealthy
-                if subgraph.health == 'unhealthy':
-                    unhealthy_subgraphs[subgraph.hash] = subgraph
-
-                # syncing subgraphs
-                syncing_subgraphs[subgraph.hash] = subgraph
-
-            print(f'Total subgraps count: {len(final_result)}\n')
-            self.__print_subgraps_info('stopped', stopped_subgraps)
-            self.__print_subgraps_info('unhealthy', unhealthy_subgraphs)
-            self.__print_subgraps_info('synced', synced_subgraps)
-            self.__print_subgraps_info('syncing', syncing_subgraphs)
+            self.__show_results()

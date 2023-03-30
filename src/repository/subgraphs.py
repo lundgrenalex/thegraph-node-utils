@@ -10,6 +10,7 @@ class SubgraphError(BaseModel):
     handler: tp.Union[str, None]
     message: str
     block_number: int
+    block_hash: str
 
 
 class SubgraphIndexingStatus(BaseModel):
@@ -64,6 +65,7 @@ class SubgraphsRepository:
                         message
                         block {
                             number
+                            hash
                         }
                     }
                 }
@@ -88,6 +90,7 @@ class SubgraphsRepository:
             if subgraph['fatalError']:
                 subgraph_error = SubgraphError(
                     block_number=subgraph['fatalError']['block']['number'],
+                    block_hash=subgraph['fatalError']['block']['hash'],
                     handler=subgraph['fatalError']['handler'],
                     message=subgraph['fatalError']['message'])
             else:
