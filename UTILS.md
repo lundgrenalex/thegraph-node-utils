@@ -16,3 +16,32 @@ graphman rewind 0xbc9e786dade383731f16dd6ec490cc066685a8cb1c9bfe6302d523ed37f9f5
 graphman rewind 0xc2abba30b0ffd0b3edb99729c7175a9c1c915a34445ded42846925e223d4cd80 16919691 QmYPh4BHfJRszYBP7tnPFPHpKf2DdyHAtgRbE8PAnU1fZN
 graphman rewind 0x0a44dc2ded531dacf6dc0c14d9e25939ac52c9c51628a0d13d2d90470b504b21 13610831 QmZRnLHdYZDVU3CP5DXzLF5GGyxEg5uz6kXRG5FateiqQH
 ```
+
+### Get subgraph info
+```bash
+python3 src/apps/get_subgraph_info.py QmYPh4BHfJRszYBP7tnPFPHpKf2DdyHAtgRbE8PAnU1fZN
+```
+
+Response:
+```json
+{
+    "name": "XXX",
+    "health": "failed",
+    "synced": false,
+    "hash": "QmQSRqdKo7EUUPccofin5NMCRsfbN7gwyzMhikhyFPUMXV",
+    "node": null,
+    "network": "mainnet",
+    "head_block": 16941043,
+    "latest_block": 13000000,
+    "entities": 9437894,
+    "error": {
+        "handler": "",
+        "message": "",
+        "block_number": 0,
+        "block_hash": ""
+    },
+    "features": [
+        "nonFatalErrors", "grafting"
+    ]
+}
+```

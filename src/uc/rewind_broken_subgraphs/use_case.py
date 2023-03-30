@@ -30,11 +30,8 @@ class RewindBrokenSubgraphs(BaseUseCase):
         block_number = subgraph.error.block_number - rollback_blocks_count
         block_hash = self.subgraphs_repository.get_hash_by_block_number(subgraph.network, block_number)
         if not block_hash:
-            logging.error(
-                f'Cannot get block hash {block_hash} for block number {block_number} for {subgraph.network} network')
             return
-
-        command = f'graphman rewind {subgraph.error.block_hash} {block_number} {block_hash}'
+        command = f'graphman rewind {block_hash} {block_number} {subgraph.hash}'
         self.commands.append(command)
 
     def execute(self, uc_request: tp.Optional[tp.Any]) -> None:
@@ -45,7 +42,7 @@ class RewindBrokenSubgraphs(BaseUseCase):
             self.__get_subgraph_command_for_rewind(subgraph, [
                 'no connection to the server',
                 'subgraph writer poisoned by previous error',
-            ])
+            ], 1)  # rollback to 100 blocks
             self.__log_wrong_subgraph(subgraph)
 
         # Display subgraphs for rewind

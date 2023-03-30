@@ -8,10 +8,10 @@ from src.drivers import TheGraphIndexerStore
 
 
 class SubgraphError(BaseModel):
-    handler: tp.Union[str, None] = None
-    message: tp.Union[str, None] = None
+    handler: str = ''
+    message: str = ''
     block_number: int = 0
-    block_hash: tp.Union[str, None] = None
+    block_hash: str = ''
 
 
 class SubgraphIndexingStatus(BaseModel):
@@ -74,6 +74,45 @@ class SubgraphsRepository:
         """
         return self.driver.send_request(query=BASE_QUERY, variables=None)
 
+    def __get_subgraph(self, subgraph_hash: str) -> tp.Dict[str, tp.Any]:
+        BASE_QUERY = """
+        query {
+            indexingStatuses(subgraphs: ["SUBGRAPH_HASH"]) {
+                subgraph
+                node
+                entityCount
+                health
+                synced
+                chains {
+                    network
+                    chainHeadBlock {
+                        number
+                    }
+                    latestBlock {
+                        number
+                    }
+                }
+                fatalError {
+                    handler
+                    message
+                    block {
+                        number
+                        hash
+                    }
+                }
+                nonFatalErrors {
+                    handler
+                    message
+                    block {
+                        number
+                        hash
+                    }
+                }
+            }
+        }
+        """.replace('SUBGRAPH_HASH', subgraph_hash)
+        return self.driver.send_request(query=BASE_QUERY, variables=None)
+
     def get_subgraph_features(self, subgraph_id: str) -> tp.Dict[str, tp.Any]:
         BASE_QUERY = """
         {
@@ -88,8 +127,38 @@ class SubgraphsRepository:
         BASE_QUERY = 'query {blockHashFromNumber(network: "NETWORK", blockNumber: BLOCK_NUMBER)}'.replace(
             'NETWORK', network).replace('BLOCK_NUMBER', str(block_number))
         try:
-            return self.driver.send_request(query=BASE_QUERY, variables=None)['data']['blockHashFromNumber']
+            result = self.driver.send_request(query=BASE_QUERY, variables=None)
+            return result['blockHashFromNumber']
         except KeyError:
+            logging.error(f'{BASE_QUERY}\nAPI_RESPONSE: {result}')
+            return None
+
+    def get_subgraph_by_hash(self, subgraph_hash: str) -> tp.Union[SubgraphIndexingStatus, None]:
+        try:
+            subgraph = self.__get_subgraph(subgraph_hash)['indexingStatuses'][0]
+            if subgraph['fatalError']:
+                subgraph_error = SubgraphError(
+                    block_number=int(subgraph['fatalError']['block']['number']),
+                    block_hash=str(subgraph['fatalError']['block']['hash']),
+                    handler=str(subgraph['fatalError']['handler']),
+                    message=str(subgraph['fatalError']['message']))
+            else:
+                subgraph_error = SubgraphError()
+            subgraph_features = self.get_subgraph_features(
+                subgraph_id=subgraph['subgraph'])['subgraphFeatures']['features']
+            return SubgraphIndexingStatus(
+                name='XXX',  # TODO: Get the Name
+                hash=subgraph['subgraph'],
+                health=subgraph['health'],
+                synced=subgraph['synced'],
+                entities=subgraph['entityCount'],
+                head_block=subgraph['chains'][0]['chainHeadBlock']['number'],
+                latest_block=subgraph['chains'][0]['latestBlock']['number'],
+                network=subgraph['chains'][0]['network'],
+                node=subgraph['node'],
+                error=subgraph_error,
+                features=subgraph_features)
+        except (KeyError, IndexError, TypeError):
             return None
 
     def get_subgraphs(self,) -> SubgraphsIndexingResult:
@@ -100,12 +169,12 @@ class SubgraphsRepository:
         for subgraph in subgraps_from_indexer:
             if subgraph['fatalError']:
                 subgraph_error = SubgraphError(
-                    block_number=subgraph['fatalError']['block']['number'],
-                    block_hash=subgraph['fatalError']['block']['hash'],
-                    handler=subgraph['fatalError']['handler'],
-                    message=subgraph['fatalError']['message'])
+                    block_number=int(subgraph['fatalError']['block']['number']),
+                    block_hash=str(subgraph['fatalError']['block']['hash']),
+                    handler=str(subgraph['fatalError']['handler']),
+                    message=str(subgraph['fatalError']['message']))
             else:
-                subgraph_error = None
+                subgraph_error = SubgraphError()
             subgraph_features = self.get_subgraph_features(
                 subgraph_id=subgraph['subgraph'])['subgraphFeatures']['features']
             try:
