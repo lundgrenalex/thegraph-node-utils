@@ -131,7 +131,7 @@ class CalcStatsUseCase(BaseUseCase):
                     except ZeroDivisionError:
                         estimation_time_to_sync_chain = None
 
-                    # reduse indexing error
+                    # reduce indexing error
                     if next_subgraph['hash'] not in results_for_median:
                         results_for_median[next_subgraph['hash']] = {
                             'sync_speed': 0,

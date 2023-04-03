@@ -10,6 +10,7 @@ class AppSettings(BaseSettings):
 
     file_store_dst: str = './checks/store.json'
     indexer_graphql_url: AnyUrl = 'http://localhost:8030/graphql'
+    indexer_jsonrpc_url: AnyUrl = 'http://localhost:8020/'
     logging_settings: LoggingSettings = LoggingSettings()
 
     class Config:

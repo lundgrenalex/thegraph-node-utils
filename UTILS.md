@@ -46,3 +46,8 @@ Response:
     ]
 }
 ```
+
+# Deploy existing subgraph with known ipfs hash
+```shell
+python3 src/apps/deploy_subgraph_with_ipfs_hash.py my_subgraph_proto_v1 QmYPh4BHfJRszYBP7tnPFPHpKf2DdyHAtgRbE8PAnU1fZN
+```
