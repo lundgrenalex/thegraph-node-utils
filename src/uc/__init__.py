@@ -3,6 +3,7 @@ from src.uc.calc_stats.use_case import CalcStatsUseCase
 from src.uc.rewind_broken_subgraphs.use_case import RewindBrokenSubgraphs
 from src.uc.get_subgraph_info.use_case import GetSubgraphInfoUseCase
 from src.uc.deploy_subgraph_with_ipfs_hash.use_case import DeploySubgraphWithIpfsHashUseCase
+from src.uc.check_subgraphs_from_csv_file.use_case import CheckSubgraphsFromCsvFile
 
 __all__ = [
     'GetDataFromIndexerUseCase',
@@ -10,4 +11,5 @@ __all__ = [
     'RewindBrokenSubgraphs',
     'GetSubgraphInfoUseCase',
     'DeploySubgraphWithIpfsHashUseCase',
+    'CheckSubgraphsFromCsvFile',
 ]

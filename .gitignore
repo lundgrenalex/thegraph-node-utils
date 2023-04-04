@@ -3,3 +3,5 @@ checks.json
 __pycache__
 .mypy_cache
 checks/*.json
+tmp/*.csv
+tmp/*.json
