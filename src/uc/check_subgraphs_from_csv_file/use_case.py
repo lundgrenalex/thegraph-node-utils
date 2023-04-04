@@ -1,6 +1,7 @@
 import typing as tp
 from src.uc.base import BaseUseCase
 from src.repository import SubgraphsRepository
+from src.repository.subgraphs import SubgraphIndexingStatus
 
 
 class CheckSubgraphsFromCsvFile(BaseUseCase):
@@ -20,7 +21,7 @@ class CheckSubgraphsFromCsvFile(BaseUseCase):
                 subgraph_name = str(subgraph_data[0]).strip()
                 subgraph_hash = str(subgraph_data[1]).strip()
 
-                subgraph = self.subgraphs_repository.get_subgraph_by_hash(subgraph_hash)
+                subgraph: SubgraphIndexingStatus = self.subgraphs_repository.get_subgraph_by_hash(subgraph_hash)
                 subgraph.name = subgraph_name
 
                 if subgraph.error.message:
