@@ -1,3 +1,4 @@
+import sys
 import logging
 from src.drivers import TheGraphIndexerStore
 from src.repository import SubgraphsRepository
@@ -9,6 +10,11 @@ def run_app() -> None:
     # rewind subgraphs with specific error
     # Error: handler=None message='Failed to transact block operations:
     # store error: no connection to the server\t' block_number=16919676
+
+    try:
+        rollback_blocks_count = sys.argv[1]
+    except IndexError:
+        rollback_blocks_count = 0
 
     # init settings
     settings = AppSettings()
@@ -30,7 +36,9 @@ def run_app() -> None:
     use_case = RewindBrokenSubgraphs(subgraphs_repository=subgraphs_repo)
 
     # execute usecases
-    use_case.execute(None)
+    use_case.execute({
+        'rollback_blocks_count': rollback_blocks_count,
+    })
 
 
 if __name__ == '__main__':

@@ -35,6 +35,7 @@ class RewindBrokenSubgraphs(BaseUseCase):
         self.commands.append(command)
 
     def execute(self, uc_request: tp.Optional[tp.Any]) -> None:
+        rollback_blocks_count = uc_request['rollback_blocks_count']
         subgraphs_info: SubgraphsIndexingResult = self.subgraphs_repository.get_subgraphs()
         for subgraph in subgraphs_info.subgraphs:
             if subgraph.health != 'failed':
@@ -42,7 +43,7 @@ class RewindBrokenSubgraphs(BaseUseCase):
             self.__get_subgraph_command_for_rewind(subgraph, [
                 'no connection to the server',
                 'subgraph writer poisoned by previous error',
-            ], 1)  # rollback for 1 block
+            ], rollback_blocks_count)  # rollback for 1 block
             self.__log_wrong_subgraph(subgraph)
 
         # Display subgraphs for rewind
