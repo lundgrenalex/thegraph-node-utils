@@ -161,6 +161,17 @@ class SubgraphsRepository:
         except (KeyError, IndexError, TypeError):
             return None
 
+    def get_subgraphs_hashes(self,) -> tp.List[str]:
+        BASE_QUERY = """
+        query {
+                indexingStatuses {
+                    subgraph
+                }
+        }
+        """
+        result = self.driver.send_request(query=BASE_QUERY, variables=None)
+        return [s['subgraph'] for s in result['indexingStatuses']]
+
     def get_subgraphs(self,) -> SubgraphsIndexingResult:
         subgraphs = []
         subgraps_from_indexer = self.__get_subgraphs()['indexingStatuses']

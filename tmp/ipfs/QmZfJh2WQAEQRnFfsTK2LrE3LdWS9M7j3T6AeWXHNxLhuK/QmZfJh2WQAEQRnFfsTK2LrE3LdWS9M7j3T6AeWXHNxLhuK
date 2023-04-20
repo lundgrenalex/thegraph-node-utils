@@ -1,0 +1,1427 @@
+dataSources:
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmWqpJta5maGEZAcQ8zW9HDGv4aPmgkBdRPJi4hPjgiCuo
+          name: EventEmitter
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+      eventHandlers:
+        - event: 'LogArgument(indexed address,indexed bytes32,bytes,uint256)'
+          handler: handleLogArgument
+      file:
+        /: /ipfs/QmdAALjgY8JjhvHNu8z6PrnjYoLE36Xuj1yHPKDiWxwVUP
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: EventEmitter
+    network: mainnet
+    source:
+      abi: EventEmitter
+      address: '0x1ACfEEA57d2ac674d7E65964f155AB9348A6C290'
+      startBlock: 16419620
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmRig15ztQLLkdBzkMGJtqdw2X1rymBL52FfXYBDn2Fdkw
+          name: StablePool
+        - file:
+            /: /ipfs/QmbXDgnMgXLNrAXpJnqhiuZHqBW5Xa5N6HjSJXx39JD4sf
+          name: WeightedPoolFactory
+        - file:
+            /: /ipfs/QmaodLeURv6ai6Qm1pZHetdNthkkAzV9aDNbmQskLC6tYL
+          name: FXPool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+        - PoolToken
+        - User
+        - UserInternalBalance
+        - Token
+        - TokenSnapshot
+        - TradePair
+        - TradePairSnapshot
+        - BalancerSnapshot
+      eventHandlers:
+        - event: >-
+            Swap(indexed bytes32,indexed address,indexed
+            address,uint256,uint256)
+          handler: handleSwapEvent
+        - event: >-
+            PoolBalanceChanged(indexed bytes32,indexed
+            address,address[],int256[],uint256[])
+          handler: handleBalanceChange
+        - event: >-
+            PoolBalanceManaged(indexed bytes32,indexed address,indexed
+            address,int256,int256)
+          handler: handleBalanceManage
+        - event: 'InternalBalanceChanged(indexed address,indexed address,int256)'
+          handler: handleInternalBalanceChange
+      file:
+        /: /ipfs/QmZ382o7hcLstqGfLX8Fqk1Vn44nBmMsqfRNKY5A2oMgWN
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: Vault
+    network: mainnet
+    source:
+      abi: Vault
+      address: '0xBA12222222228d8Ba445958a75a0704d566BF2C8'
+      startBlock: 12272146
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmbXDgnMgXLNrAXpJnqhiuZHqBW5Xa5N6HjSJXx39JD4sf
+          name: WeightedPoolFactory
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewWeightedPool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: WeightedPoolFactory
+    network: mainnet
+    source:
+      abi: WeightedPoolFactory
+      address: '0x8E9aa87E45e92bad84D5F8DD1bff34Fb92637dE9'
+      startBlock: 12272146
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmbXDgnMgXLNrAXpJnqhiuZHqBW5Xa5N6HjSJXx39JD4sf
+          name: WeightedPoolFactory
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmNt9D5bLD28fgn9Ch5YQ3prccVAS4XqLU8BbnaQH1czLt
+          name: WeightedPoolV2
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewWeightedPoolV2
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: WeightedPoolV2Factory
+    network: mainnet
+    source:
+      abi: WeightedPoolFactory
+      address: '0xcC508a455F5b0073973107Db6a878DdBDab957bC'
+      startBlock: 15497271
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmbXDgnMgXLNrAXpJnqhiuZHqBW5Xa5N6HjSJXx39JD4sf
+          name: WeightedPoolFactory
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmNt9D5bLD28fgn9Ch5YQ3prccVAS4XqLU8BbnaQH1czLt
+          name: WeightedPoolV2
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewWeightedPoolV3
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: WeightedPoolV3Factory
+    network: mainnet
+    source:
+      abi: WeightedPoolFactory
+      address: '0x5Dd94Da3644DDD055fcf6B3E1aa310Bb7801EB8b'
+      startBlock: 16520627
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmbXDgnMgXLNrAXpJnqhiuZHqBW5Xa5N6HjSJXx39JD4sf
+          name: WeightedPoolFactory
+        - file:
+            /: /ipfs/QmPQejMwDJ1nzSpgrpS2xLdgoWv1jN7qX4wUnEW72pfGgA
+          name: WeightedPool2Tokens
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewWeighted2TokenPool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: WeightedPool2TokenFactory
+    network: mainnet
+    source:
+      abi: WeightedPoolFactory
+      address: '0xA5bf2ddF098bb0Ef6d120C98217dD6B141c74EE0'
+      startBlock: 12272146
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmbrsDzjQavKMvbpk4hLSL69TqRAxhsbEAiBAnKshfEJfr
+          name: StablePoolFactory
+        - file:
+            /: /ipfs/QmRig15ztQLLkdBzkMGJtqdw2X1rymBL52FfXYBDn2Fdkw
+          name: StablePool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewStablePool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: StablePoolFactory
+    network: mainnet
+    source:
+      abi: StablePoolFactory
+      address: '0xc66Ba2B6595D3613CCab350C886aCE23866EDe24'
+      startBlock: 12703127
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmbrsDzjQavKMvbpk4hLSL69TqRAxhsbEAiBAnKshfEJfr
+          name: StablePoolFactory
+        - file:
+            /: /ipfs/QmRig15ztQLLkdBzkMGJtqdw2X1rymBL52FfXYBDn2Fdkw
+          name: StablePool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewStablePoolV2
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: StablePoolV2Factory
+    network: mainnet
+    source:
+      abi: StablePoolFactory
+      address: '0x8df6EfEc5547e31B0eb7d1291B511FF8a2bf987c'
+      startBlock: 14934936
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmdDXBA2uWcErorWkBPEfgs59tNvNC5U5aKG2s6LFKbPXf
+          name: MetaStablePoolFactory
+        - file:
+            /: /ipfs/QmRig15ztQLLkdBzkMGJtqdw2X1rymBL52FfXYBDn2Fdkw
+          name: StablePool
+        - file:
+            /: /ipfs/QmTWr3XMgnAVMoRoNYt41fbsfRVARBC64gbPe7nwAE2Een
+          name: MetaStablePool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewMetaStablePool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: MetaStablePoolFactory
+    network: mainnet
+    source:
+      abi: MetaStablePoolFactory
+      address: '0x67d27634E44793fE63c467035E31ea8635117cd4'
+      startBlock: 13011941
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmPYdezDoKJjPkepic5NrHWtnRVns7zfbbz5w8bzyUD6CT
+          name: LiquidityBootstrappingPoolFactory
+        - file:
+            /: /ipfs/QmWXyE4muZYdpCYDbUhooP1fM837HJCRtVGTPWuKUj7DtR
+          name: LiquidityBootstrappingPool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewLiquidityBootstrappingPool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: LiquidityBootstrappingPoolFactory
+    network: mainnet
+    source:
+      abi: LiquidityBootstrappingPoolFactory
+      address: '0x751A0bC0e3f75b38e01Cf25bFCE7fF36DE1C87DE'
+      startBlock: 12871780
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmPYdezDoKJjPkepic5NrHWtnRVns7zfbbz5w8bzyUD6CT
+          name: LiquidityBootstrappingPoolFactory
+        - file:
+            /: /ipfs/QmWXyE4muZYdpCYDbUhooP1fM837HJCRtVGTPWuKUj7DtR
+          name: LiquidityBootstrappingPool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewLiquidityBootstrappingPool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: TempLiquidityBootstrappingPoolFactory
+    network: mainnet
+    source:
+      abi: LiquidityBootstrappingPoolFactory
+      address: '0x0F3e0c4218b7b0108a3643cFe9D3ec0d4F57c54e'
+      startBlock: 13730248
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmWCjzek81Lv66wvC5nUW4CwmkUKsfp1driYbSfARXroAG
+          name: InvestmentPoolFactory
+        - file:
+            /: /ipfs/QmSEPuX6uccvkSdagtLE8iMkzzwM652D5F6imKheQWdvkb
+          name: InvestmentPool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewInvestmentPool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: InvestmentPoolFactory
+    network: mainnet
+    source:
+      abi: InvestmentPoolFactory
+      address: '0x48767F9F868a4A7b86A90736632F6E44C2df7fa9'
+      startBlock: 13279079
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmfTKqVfWVQrHfZ3PjAzJvovDJigsHDhSiDHefMxX1nYrN
+          name: ConvergentPoolFactory
+        - file:
+            /: /ipfs/QmTGYhaRKUxXGEafXncM6kJJrk5uN2zfkShKc4dwsiEJne
+          name: ConvergentCurvePool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewCCPPool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: ConvergentPoolFactory
+    network: mainnet
+    source:
+      abi: ConvergentPoolFactory
+      address: '0xb7561f547F3207eDb42A6AfA42170Cd47ADD17BD'
+      startBlock: 12686198
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmNPA5G3DxeWiUq5Y9cDGyp8VLV3DRPskkAT8CctDrjVrb
+          name: StablePhantomPoolFactory
+        - file:
+            /: /ipfs/QmRig15ztQLLkdBzkMGJtqdw2X1rymBL52FfXYBDn2Fdkw
+          name: StablePool
+        - file:
+            /: /ipfs/Qmabr1wuRMYZbtQZDUAPUNgSdT7UY5vWaFsPvsPGTfzEPS
+          name: StablePhantomPool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewStablePhantomPool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: StablePhantomPoolFactory
+    network: mainnet
+    source:
+      abi: StablePhantomPoolFactory
+      address: '0xb08E16cFc07C684dAA2f93C70323BAdb2A6CBFd2'
+      startBlock: 13766527
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmWS6H676brfR2RBHCKE8MReitjTfr3kTH6AhUu2pWT8Et
+          name: ComposableStablePoolFactory
+        - file:
+            /: /ipfs/QmPpYDEariBynrpT5Sbws4SJDQCqBV5cvqcq6gaPDHzijS
+          name: ComposableStablePool
+        - file:
+            /: /ipfs/QmRig15ztQLLkdBzkMGJtqdw2X1rymBL52FfXYBDn2Fdkw
+          name: StablePool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewComposableStablePool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: ComposableStablePoolFactory
+    network: mainnet
+    source:
+      abi: ComposableStablePoolFactory
+      address: '0xf9ac7B9dF2b3454E841110CcE5550bD5AC6f875F'
+      startBlock: 15485885
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmfAJvc45dBYPNK7ZNt9FE56n8THuBauH9rTg2CR9AT2sM
+          name: ComposableStablePoolV2Factory
+        - file:
+            /: /ipfs/QmPpYDEariBynrpT5Sbws4SJDQCqBV5cvqcq6gaPDHzijS
+          name: ComposableStablePool
+        - file:
+            /: /ipfs/QmRig15ztQLLkdBzkMGJtqdw2X1rymBL52FfXYBDn2Fdkw
+          name: StablePool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewComposableStablePoolV2
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: ComposableStablePoolV2Factory
+    network: mainnet
+    source:
+      abi: ComposableStablePoolV2Factory
+      address: '0x85a80afee867aDf27B50BdB7b76DA70f1E853062'
+      startBlock: 16083775
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmfAJvc45dBYPNK7ZNt9FE56n8THuBauH9rTg2CR9AT2sM
+          name: ComposableStablePoolV2Factory
+        - file:
+            /: /ipfs/QmPpYDEariBynrpT5Sbws4SJDQCqBV5cvqcq6gaPDHzijS
+          name: ComposableStablePool
+        - file:
+            /: /ipfs/QmRig15ztQLLkdBzkMGJtqdw2X1rymBL52FfXYBDn2Fdkw
+          name: StablePool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewComposableStablePoolV3
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: ComposableStablePoolV3Factory
+    network: mainnet
+    source:
+      abi: ComposableStablePoolV2Factory
+      address: '0xdba127fBc23fb20F5929C546af220A991b5C6e01'
+      startBlock: 16520627
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmWS6H676brfR2RBHCKE8MReitjTfr3kTH6AhUu2pWT8Et
+          name: ComposableStablePoolFactory
+        - file:
+            /: /ipfs/QmPpYDEariBynrpT5Sbws4SJDQCqBV5cvqcq6gaPDHzijS
+          name: ComposableStablePool
+        - file:
+            /: /ipfs/QmRig15ztQLLkdBzkMGJtqdw2X1rymBL52FfXYBDn2Fdkw
+          name: StablePool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewHighAmpComposableStablePool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: HighAmpComposableStablePoolFactory
+    network: mainnet
+    source:
+      abi: ComposableStablePoolFactory
+      address: '0xBa1b4a90bAD57470a2cbA762A32955dC491f76e0'
+      startBlock: 15852258
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmTrqsp3M9TT2DGaRzuyehsU9tV7YyBtxJURPStsK8wSDP
+          name: AaveLinearPoolFactory
+        - file:
+            /: /ipfs/QmYxFETqHdCLWXBwvEdcU4KHw8uqrNAc8hMy11iwzBAp28
+          name: LinearPool
+        - file:
+            /: /ipfs/QmXEp5FGSSwD1qmcodpwmiTpAYGSsUdUFiEmVRmS5FC7MY
+          name: AaveLinearPool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewAaveLinearPool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: AaveLinearPoolFactory
+    network: mainnet
+    source:
+      abi: AaveLinearPoolFactory
+      address: '0xD7FAD3bd59D6477cbe1BE7f646F7f1BA25b230f8'
+      startBlock: 13766443
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmTrqsp3M9TT2DGaRzuyehsU9tV7YyBtxJURPStsK8wSDP
+          name: AaveLinearPoolFactory
+        - file:
+            /: /ipfs/QmYxFETqHdCLWXBwvEdcU4KHw8uqrNAc8hMy11iwzBAp28
+          name: LinearPool
+        - file:
+            /: /ipfs/QmXEp5FGSSwD1qmcodpwmiTpAYGSsUdUFiEmVRmS5FC7MY
+          name: AaveLinearPool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewAaveLinearPoolV2
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: AaveLinearPoolV2Factory
+    network: mainnet
+    source:
+      abi: AaveLinearPoolFactory
+      address: '0x6A0AC04f5C2A10297D5FA79FA6358837a8770041'
+      startBlock: 15359085
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmSwLDfLyjVVNsHERUDrGMRe4dUNFzQ7V71vVHmzzDs4Md
+          name: AaveLinearPoolV3Factory
+        - file:
+            /: /ipfs/QmYxFETqHdCLWXBwvEdcU4KHw8uqrNAc8hMy11iwzBAp28
+          name: LinearPool
+        - file:
+            /: /ipfs/QmXEp5FGSSwD1qmcodpwmiTpAYGSsUdUFiEmVRmS5FC7MY
+          name: AaveLinearPool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: 'AaveLinearPoolCreated(indexed address,indexed uint256)'
+          handler: handleNewAaveLinearPoolV3
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: AaveLinearPoolV3Factory
+    network: mainnet
+    source:
+      abi: AaveLinearPoolV3Factory
+      address: '0x7d833FEF5BB92ddb578DA85fc0c35cD5Cc00Fb3e'
+      startBlock: 16136501
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmRWcdJ9UtejcM4rpS7xj8g29z7s4hwghcwT2Hw1ksWyKz
+          name: EulerLinearPoolFactory
+        - file:
+            /: /ipfs/QmYxFETqHdCLWXBwvEdcU4KHw8uqrNAc8hMy11iwzBAp28
+          name: LinearPool
+        - file:
+            /: /ipfs/QmX8GV2wqx6mvmmoDj3qf4m48r1v9TDYeF7VPdGjbgu9sB
+          name: EulerLinearPool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: 'EulerLinearPoolCreated(indexed address,indexed uint256)'
+          handler: handleNewEulerLinearPool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: EulerLinearPoolFactory
+    network: mainnet
+    source:
+      abi: EulerLinearPoolFactory
+      address: '0x5F43FBa61f63Fa6bFF101a0A0458cEA917f6B347'
+      startBlock: 16542557
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmTrqsp3M9TT2DGaRzuyehsU9tV7YyBtxJURPStsK8wSDP
+          name: ERC4626LinearPoolFactory
+        - file:
+            /: /ipfs/QmYxFETqHdCLWXBwvEdcU4KHw8uqrNAc8hMy11iwzBAp28
+          name: LinearPool
+        - file:
+            /: /ipfs/Qmd5RrYfV4QQTrahB6gjWeBLA8itsNCTrccA3CE8GUuRkQ
+          name: ERC4626LinearPool
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewERC4626LinearPool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: ERC4626LinearPoolFactory
+    network: mainnet
+    source:
+      abi: ERC4626LinearPoolFactory
+      address: '0xE061bF85648e9FA7b59394668CfEef980aEc4c66'
+      startBlock: 14521506
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmfTaVtc75v1Fy4cshRoZMyC7QqVYDw3adYFqXgTDoFyph
+          name: ERC4626LinearPoolV3Factory
+        - file:
+            /: /ipfs/QmYxFETqHdCLWXBwvEdcU4KHw8uqrNAc8hMy11iwzBAp28
+          name: LinearPool
+        - file:
+            /: /ipfs/QmYdS1dySxGdsQWpZsgfUQkQrLtKqX2FfNw6sjKRbFcpNF
+          name: ERC4626LinearPoolV3
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: 'Erc4626LinearPoolCreated(indexed address,indexed uint256)'
+          handler: handleNewERC4626LinearPoolV3
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: ERC4626LinearPoolV3Factory
+    network: mainnet
+    source:
+      abi: ERC4626LinearPoolV3Factory
+      address: '0x67A25ca2350Ebf4a0C475cA74C257C94a373b828'
+      startBlock: 16542240
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdxpVZTYwHjKW3WCwcJTJXdKibHi5uUQdHRoKsGhy6gis
+          name: Vault
+        - file:
+            /: /ipfs/QmTbFuUNTTEkRVQZPUofpbCofEVRniQhdzy2LZWn6vZL8i
+          name: ERC20
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+        - file:
+            /: /ipfs/QmaodLeURv6ai6Qm1pZHetdNthkkAzV9aDNbmQskLC6tYL
+          name: FXPool
+        - file:
+            /: /ipfs/QmfGYWpDz8HSPTTN8tZJMjqNNhAVD71TvoC1GQB3Tvfc6F
+          name: FXPoolFactory
+      apiVersion: 0.0.5
+      entities:
+        - Balancer
+        - Pool
+      eventHandlers:
+        - event: 'NewFXPool(indexed address,indexed bytes32,indexed address)'
+          handler: handleNewFXPool
+      file:
+        /: /ipfs/QmeT9rzGwZ8EjSuoYbMa1C6nD7ztGxwASDuwqLeQh9URen
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: FXPoolFactory
+    network: mainnet
+    source:
+      abi: FXPoolFactory
+      address: '0x81fE9e5B28dA92aE949b705DfDB225f7a7cc5134'
+      startBlock: 15981805
+description: >-
+  Balancer is a non-custodial portfolio manager, liquidity provider, and price
+  sensor.
+graft:
+  base: QmYnU9J6HJ56uGN79F3wo4nG24hVZUNPboSUyje1NvSm68
+  block: 16521178
+repository: 'https://github.com/balancer-labs/balancer-subgraph-v2'
+schema:
+  file:
+    /: /ipfs/QmZceChkWG5TyedSjFvhoh6D9Da4s4c4GwB6GTQkYx8vZ5
+specVersion: 0.0.2
+templates:
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdHbQf2pXqak8XruLV6qw94zZho6Qdcbmy3ERTiApgvXH
+          name: WeightedPool
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+        - event: SwapFeePercentageChanged(uint256)
+          handler: handleSwapFeePercentageChange
+        - event: PausedStateChanged(bool)
+          handler: handlePausedStateChanged
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: WeightedPool
+    network: mainnet
+    source:
+      abi: WeightedPool
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmNt9D5bLD28fgn9Ch5YQ3prccVAS4XqLU8BbnaQH1czLt
+          name: WeightedPoolV2
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+        - event: SwapFeePercentageChanged(uint256)
+          handler: handleSwapFeePercentageChange
+        - event: 'ProtocolFeePercentageCacheUpdated(indexed uint256,uint256)'
+          handler: handleProtocolFeePercentageCacheUpdated
+        - event: RecoveryModeStateChanged(bool)
+          handler: handleRecoveryModeStateChanged
+        - event: PausedStateChanged(bool)
+          handler: handlePausedStateChanged
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: WeightedPoolV2
+    network: mainnet
+    source:
+      abi: WeightedPoolV2
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmPQejMwDJ1nzSpgrpS2xLdgoWv1jN7qX4wUnEW72pfGgA
+          name: WeightedPool2Tokens
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+        - event: OracleEnabledChanged(bool)
+          handler: handleOracleEnabledChanged
+        - event: SwapFeePercentageChanged(uint256)
+          handler: handleSwapFeePercentageChange
+        - event: PausedStateChanged(bool)
+          handler: handlePausedStateChanged
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: WeightedPool2Tokens
+    network: mainnet
+    source:
+      abi: WeightedPool2Tokens
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmRig15ztQLLkdBzkMGJtqdw2X1rymBL52FfXYBDn2Fdkw
+          name: StablePool
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+        - event: SwapFeePercentageChanged(uint256)
+          handler: handleSwapFeePercentageChange
+        - event: 'AmpUpdateStarted(uint256,uint256,uint256,uint256)'
+          handler: handleAmpUpdateStarted
+        - event: AmpUpdateStopped(uint256)
+          handler: handleAmpUpdateStopped
+        - event: PausedStateChanged(bool)
+          handler: handlePausedStateChanged
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: StablePool
+    network: mainnet
+    source:
+      abi: StablePool
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmTWr3XMgnAVMoRoNYt41fbsfRVARBC64gbPe7nwAE2Een
+          name: MetaStablePool
+        - file:
+            /: /ipfs/QmRig15ztQLLkdBzkMGJtqdw2X1rymBL52FfXYBDn2Fdkw
+          name: StablePool
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+        - PriceRateProvider
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+        - event: SwapFeePercentageChanged(uint256)
+          handler: handleSwapFeePercentageChange
+        - event: 'AmpUpdateStarted(uint256,uint256,uint256,uint256)'
+          handler: handleAmpUpdateStarted
+        - event: AmpUpdateStopped(uint256)
+          handler: handleAmpUpdateStopped
+        - event: 'PriceRateProviderSet(indexed address,indexed address,uint256)'
+          handler: handlePriceRateProviderSet
+        - event: 'PriceRateCacheUpdated(indexed address,uint256)'
+          handler: handlePriceRateCacheUpdated
+        - event: OracleEnabledChanged(bool)
+          handler: handleOracleEnabledChanged
+        - event: PausedStateChanged(bool)
+          handler: handlePausedStateChanged
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: MetaStablePool
+    network: mainnet
+    source:
+      abi: MetaStablePool
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmTGYhaRKUxXGEafXncM6kJJrk5uN2zfkShKc4dwsiEJne
+          name: ConvergentCurvePool
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: ConvergentCurvePool
+    network: mainnet
+    source:
+      abi: ConvergentCurvePool
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmWXyE4muZYdpCYDbUhooP1fM837HJCRtVGTPWuKUj7DtR
+          name: LiquidityBootstrappingPool
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+        - GradualWeightUpdate
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+        - event: SwapFeePercentageChanged(uint256)
+          handler: handleSwapFeePercentageChange
+        - event: SwapEnabledSet(bool)
+          handler: handleSwapEnabledSet
+        - event: 'GradualWeightUpdateScheduled(uint256,uint256,uint256[],uint256[])'
+          handler: handleGradualWeightUpdateScheduled
+        - event: PausedStateChanged(bool)
+          handler: handlePausedStateChanged
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: LiquidityBootstrappingPool
+    network: mainnet
+    source:
+      abi: LiquidityBootstrappingPool
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmSEPuX6uccvkSdagtLE8iMkzzwM652D5F6imKheQWdvkb
+          name: InvestmentPool
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+        - GradualWeightUpdate
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+        - event: SwapFeePercentageChanged(uint256)
+          handler: handleSwapFeePercentageChange
+        - event: SwapEnabledSet(bool)
+          handler: handleSwapEnabledSet
+        - event: 'GradualWeightUpdateScheduled(uint256,uint256,uint256[],uint256[])'
+          handler: handleGradualWeightUpdateScheduled
+        - event: ManagementFeePercentageChanged(uint256)
+          handler: handleManagementFeePercentageChanged
+        - event: PausedStateChanged(bool)
+          handler: handlePausedStateChanged
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: InvestmentPool
+    network: mainnet
+    source:
+      abi: InvestmentPool
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/Qmabr1wuRMYZbtQZDUAPUNgSdT7UY5vWaFsPvsPGTfzEPS
+          name: StablePhantomPool
+        - file:
+            /: /ipfs/QmRig15ztQLLkdBzkMGJtqdw2X1rymBL52FfXYBDn2Fdkw
+          name: StablePool
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+        - GradualWeightUpdate
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+        - event: SwapFeePercentageChanged(uint256)
+          handler: handleSwapFeePercentageChange
+        - event: 'AmpUpdateStarted(uint256,uint256,uint256,uint256)'
+          handler: handleAmpUpdateStarted
+        - event: AmpUpdateStopped(uint256)
+          handler: handleAmpUpdateStopped
+        - event: 'TokenRateProviderSet(indexed address,indexed address,uint256)'
+          handler: handlePriceRateProviderSet
+        - event: 'TokenRateCacheUpdated(indexed address,uint256)'
+          handler: handlePriceRateCacheUpdated
+        - event: PausedStateChanged(bool)
+          handler: handlePausedStateChanged
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: StablePhantomPool
+    network: mainnet
+    source:
+      abi: StablePhantomPool
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmPpYDEariBynrpT5Sbws4SJDQCqBV5cvqcq6gaPDHzijS
+          name: ComposableStablePool
+        - file:
+            /: /ipfs/QmRig15ztQLLkdBzkMGJtqdw2X1rymBL52FfXYBDn2Fdkw
+          name: StablePool
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+        - GradualWeightUpdate
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+        - event: SwapFeePercentageChanged(uint256)
+          handler: handleSwapFeePercentageChange
+        - event: 'AmpUpdateStarted(uint256,uint256,uint256,uint256)'
+          handler: handleAmpUpdateStarted
+        - event: AmpUpdateStopped(uint256)
+          handler: handleAmpUpdateStopped
+        - event: 'TokenRateProviderSet(indexed uint256,indexed address,uint256)'
+          handler: handleTokenRateProviderSet
+        - event: 'TokenRateCacheUpdated(indexed uint256,uint256)'
+          handler: handleTokenRateCacheUpdated
+        - event: 'ProtocolFeePercentageCacheUpdated(indexed uint256,uint256)'
+          handler: handleProtocolFeePercentageCacheUpdated
+        - event: RecoveryModeStateChanged(bool)
+          handler: handleRecoveryModeStateChanged
+        - event: PausedStateChanged(bool)
+          handler: handlePausedStateChanged
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: StablePhantomPoolV2
+    network: mainnet
+    source:
+      abi: ComposableStablePool
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmYxFETqHdCLWXBwvEdcU4KHw8uqrNAc8hMy11iwzBAp28
+          name: LinearPool
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+        - GradualWeightUpdate
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+        - event: SwapFeePercentageChanged(uint256)
+          handler: handleSwapFeePercentageChange
+        - event: 'TargetsSet(indexed address,uint256,uint256)'
+          handler: handleTargetsSet
+        - event: PausedStateChanged(bool)
+          handler: handlePausedStateChanged
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: LinearPool
+    network: mainnet
+    source:
+      abi: LinearPool
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmVHyhquKF68zuc9KbSYdtd62iKeGgxndc5jsv5PoyAKkM
+          name: Gyro2Pool
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+        - GradualWeightUpdate
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+        - event: SwapFeePercentageChanged(uint256)
+          handler: handleSwapFeePercentageChange
+        - event: PausedLocally()
+          handler: handlePauseGyroPool
+        - event: UnpausedLocally()
+          handler: handleUnpauseGyroPool
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: Gyro2Pool
+    network: mainnet
+    source:
+      abi: Gyro2Pool
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmbKn6tMix9JJA1Uyu3pwmHHLosjiyMvtt1CF5vNGMGMdm
+          name: Gyro3Pool
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+        - GradualWeightUpdate
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+        - event: SwapFeePercentageChanged(uint256)
+          handler: handleSwapFeePercentageChange
+        - event: PausedLocally()
+          handler: handlePauseGyroPool
+        - event: UnpausedLocally()
+          handler: handleUnpauseGyroPool
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: Gyro3Pool
+    network: mainnet
+    source:
+      abi: Gyro3Pool
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/Qmf4mfQcw1sA4ard55wR29RzycVVxhHSDPvuKQFU2FeJcn
+          name: GyroEPool
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+        - GradualWeightUpdate
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+        - event: SwapFeePercentageChanged(uint256)
+          handler: handleSwapFeePercentageChange
+        - event: PausedLocally()
+          handler: handlePauseGyroPool
+        - event: UnpausedLocally()
+          handler: handleUnpauseGyroPool
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: GyroEPool
+    network: mainnet
+    source:
+      abi: GyroEPool
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmaodLeURv6ai6Qm1pZHetdNthkkAzV9aDNbmQskLC6tYL
+          name: FXPool
+      apiVersion: 0.0.5
+      entities:
+        - Pool
+        - PoolShare
+        - Swap
+        - PoolToken
+        - GradualWeightUpdate
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+        - event: 'ParametersSet(uint256,uint256,uint256,uint256,uint256)'
+          handler: handleParametersSet
+      file:
+        /: /ipfs/QmXS1kF6TfwYtcV8jxNsA9QV3XPu5qnWP3V6w2ERWpxVd6
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: FXPool
+    network: mainnet
+    source:
+      abi: FXPool
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmejNJmagDj23DxnF7Qyiqq8g9oRkLwFsMerqWyww4W7H1
+          name: AccessControlledOffchainAggregator
+      apiVersion: 0.0.5
+      entities:
+        - Token
+      eventHandlers:
+        - event: 'AnswerUpdated(indexed int256,indexed uint256,uint256)'
+          handler: handleAnswerUpdated
+      file:
+        /: /ipfs/QmQPxSp91jucrrT4E4snB22SLKsViXi6RReRLm1PzVW3xN
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: OffchainAggregator
+    network: mainnet
+    source:
+      abi: AccessControlledOffchainAggregator

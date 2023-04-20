@@ -5,3 +5,4 @@ __pycache__
 checks/*.json
 tmp/*.csv
 tmp/*.json
+tmp/*.py

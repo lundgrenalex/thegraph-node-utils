@@ -1,3 +1,4 @@
+import logging
 import typing as tp
 import requests
 
@@ -13,17 +14,22 @@ class IndexerRPCDriver:
 
     def __make_request(self, query: tp.Dict[str, tp.Any], method: str) -> tp.Dict[str, tp.Any]:
         RPC_QUERY = {"jsonrpc": "2.0", "id": "1", "method": method, "params": query}
-        response = requests.post(url=self.indexer_rpc_url, json=RPC_QUERY, headers=self.headers)
+        response = requests.post(
+            url=self.indexer_rpc_url,
+            json=RPC_QUERY,
+            headers=self.headers,
+            timeout=20)
+        logging.info(response.text)
         return response.json()
 
     def create_subgraph(self, subgraph_name: str) -> tp.Dict[str, tp.Any]:
         return self.__make_request(
             query={'name': subgraph_name},
-            method='create_subgraph'
+            method='subgraph_create'
         )
 
     def deploy_subgraph(self, subgraph_name: str, ipfs_hash: str) -> tp.Dict[str, tp.Any]:
         return self.__make_request(
             query={'name': subgraph_name, 'ipfs_hash': ipfs_hash},
-            method='deploy_subgraph'
+            method='subgraph_deploy'
         )

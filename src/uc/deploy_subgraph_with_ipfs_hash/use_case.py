@@ -1,4 +1,5 @@
 import typing as tp
+import logging
 
 from src.uc.base import BaseUseCase
 from src.repository import SubgraphsOperatorRepository
@@ -13,11 +14,14 @@ class DeploySubgraphWithIpfsHashUseCase(BaseUseCase):
         self.__subgraphs_operator_repo.create_subgraph(uc_request['subgraph_name'])
         deploy_res = self.__subgraphs_operator_repo.deploy_subgraph(
             uc_request['subgraph_name'],
-            uc_request['ipfs_hash'])
+            uc_request['subgraph_ipfs_hash'])
         if 'error' in deploy_res:
             if 'code' in deploy_res['error']:
                 if deploy_res['error']['code'] == 0:
                     new_ipfs_hash = deploy_res['error']['message'].replace(
                         'subgraph validation error: [the graft base is invalid: deployment not found: ', '').replace(']', '')
+                    logging.info(new_ipfs_hash)
                     deploy_res = self.__subgraphs_operator_repo.deploy_subgraph(
                         uc_request['subgraph_name'], new_ipfs_hash)
+                    logging.info(deploy_res)
+        logging.info(deploy_res)
