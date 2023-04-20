@@ -20,6 +20,8 @@ def run_app() -> None:
         **settings.logging_settings.dict()
     )
 
+    logging.info('Get subgraphs info started!')
+
     # init drivers
     graph_indexer_store = TheGraphIndexerStore(
         url=settings.indexer_graphql_url)

@@ -1,7 +1,8 @@
 import logging
+
 from src.drivers import FileStore
-from src.settings.base import AppSettings
 from src.repository import StatsRepository
+from src.settings.base import AppSettings
 from src.uc import CalcStatsUseCase
 
 

@@ -56,32 +56,33 @@ class CalcStatsUseCase(BaseUseCase):
     def __show_results(self) -> None:
 
         # filter subgraps
-        stopped_subgraps = {}
         unhealthy_subgraphs = {}
         synced_subgraps = {}
         syncing_subgraphs = {}
 
         for subgraph in self.result:
 
-            # stopped
-            if subgraph.health == 'failed':
-                stopped_subgraps[subgraph.hash] = subgraph
-                continue
-
             # synced
-            if subgraph.synced:
+            if all([
+                subgraph.head_block == subgraph.latest_block,
+                subgraph.health == 'healthy',
+            ]):
                 synced_subgraps[subgraph.hash] = subgraph
                 continue
 
             # unhealthy
-            if subgraph.health == 'unhealthy':
+            if any([
+                subgraph.health == 'unhealthy',
+                subgraph.health == 'failed',
+                subgraph.error.message,
+            ]):
                 unhealthy_subgraphs[subgraph.hash] = subgraph
+                continue
 
             # syncing subgraphs
             syncing_subgraphs[subgraph.hash] = subgraph
 
         print(f'Total subgraps count: {len(self.result)}\n')
-        self.__print_subgraps_info('stopped', stopped_subgraps)
         self.__print_subgraps_info('unhealthy', unhealthy_subgraphs)
         self.__print_subgraps_info('synced', synced_subgraps)
         self.__print_subgraps_info('syncing', syncing_subgraphs)

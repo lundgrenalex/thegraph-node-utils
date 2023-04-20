@@ -121,7 +121,8 @@ class SubgraphsRepository:
             }
         }
         """.replace('SUBGRAPH_ID', subgraph_id)
-        return self.driver.send_request(query=BASE_QUERY, variables=None)
+        result = self.driver.send_request(query=BASE_QUERY, variables=None)
+        return result['subgraphFeatures']['features'] if result else []
 
     def get_hash_by_block_number(self, network: str, block_number: int) -> tp.Union[str, None]:
         BASE_QUERY = 'query {blockHashFromNumber(network: "NETWORK", blockNumber: BLOCK_NUMBER)}'.replace(
@@ -186,8 +187,11 @@ class SubgraphsRepository:
                     message=str(subgraph['fatalError']['message']))
             else:
                 subgraph_error = SubgraphError()
+
+            # Grafting and etc
             subgraph_features = self.get_subgraph_features(
-                subgraph_id=subgraph['subgraph'])['subgraphFeatures']['features']
+                subgraph_id=subgraph['subgraph'])
+
             try:
                 subgraph_status = SubgraphIndexingStatus(
                     name='XXX',  # TODO: Get the Name
